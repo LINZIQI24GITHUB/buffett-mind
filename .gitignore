@@ -1,0 +1,7 @@
+﻿corpus/
+data/
+out/
+__pycache__/
+*.py[cod]
+.venv/
+.env
