@@ -33,6 +33,7 @@
 这季度市值跌了，是股价跌还是他减仓？          → decompose.py
 他到底有没有言行一致？                      → reconcile.py
 按他的框架，这个问题他会怎么看？             → answer.py（证据包）
+他对 A 股公司怎么看？                       → ashare_fit.py（推演：用尺子量，不是他的判断）
 ```
 
 ## 快速开始
@@ -52,6 +53,19 @@ python scripts/build_splits.py                  # 拆股事件
 
 python scripts/demo.py                          # 离线自检（5 项）
 ```
+
+## A 股：用他的尺子量
+
+巴菲特几乎不对 A 股表态（658 篇语料里沪深300 前十大零命中），所以这一步是**外推**：
+
+```bash
+python scripts/ashare_fit.py --codes 600519,300750,600036    # 东财数据中心（HTTPS）
+python scripts/ashare_fit.py --codes 600519 --local          # 本地财报（离线）
+```
+
+R2 护城河 → 十年 ROE 水平与稳定性、毛利率；R3 安全边际 → PE_TTM；
+R7 资本配置 → 股息率；R1 能力圈 → 行业（按代码映射）。
+输出首行固定「推演 · 非巴菲特本人观点」，且不构成买卖建议。
 
 ## 证据分级
 
