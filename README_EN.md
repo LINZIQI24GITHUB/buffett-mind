@@ -20,7 +20,7 @@ Most "Buffett skills" give you a methodology. This one gives you a **verifiable 
 ```bash
 pip install -r requirements.txt
 python scripts/demo.py          # 6 offline checks, no network
-python scripts/quote.py "price is what you pay, value is what you get" --verify
+python scripts/quote.py --verify "price is what you pay, value is what you get"
 python scripts/answer.py --question "Is Apple still worth holding?" --voice
 ```
 

@@ -25,7 +25,7 @@ jobs:
         run: python scripts/tone_check.py --file examples/voice-apple-en.txt --lang en
       - name: Quote verification
         run: |
-          python scripts/quote.py "price is what you pay, value is what you get" --verify
-          ! python scripts/quote.py "this sentence was never said by warren buffett" --verify
+          python scripts/quote.py --verify "price is what you pay, value is what you get"
+          ! python scripts/quote.py --verify "this sentence was never said by warren buffett"
       - name: Tests
         run: pytest -q

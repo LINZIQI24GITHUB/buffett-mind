@@ -8,7 +8,7 @@ Open an issue with the sentence and where you saw it. Every citation in this rep
 verifiable against `corpus/`; if one is not, that is a bug, and the most valuable one.
 
 ```bash
-python scripts/quote.py "<the sentence>" --verify
+python scripts/quote.py --verify "<the sentence>"
 ```
 
 ## 2. Fix a data error
