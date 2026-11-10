@@ -36,7 +36,10 @@ def check_corpus() -> tuple[bool, str]:
     n = con.execute("SELECT COUNT(*) FROM docs").fetchone()[0]
     letters = con.execute("SELECT COUNT(*) FROM docs WHERE kind='letter'").fetchone()[0]
     con.close()
-    return n >= 650 and letters >= 45, f"{n} 篇（股东信 {letters}）"
+    # 全量索引 658 篇；仓库快照只有股东信（FAQ 是第三方汇编，不进仓库）
+    if n >= 650:
+        return letters >= 45, f"{n} 篇（股东信 {letters}）"
+    return letters >= 45, f"{n} 篇（股东信 {letters}，快照模式）"
 
 
 def check_verify() -> tuple[bool, str]:
@@ -73,12 +76,30 @@ def check_framework() -> tuple[bool, str]:
         return False, "framework.md 不存在"
     text = FRAMEWORK.read_text(encoding="utf-8")
     rules = re.findall(r"^### R(\d+)", text, re.M)
-    docs = sorted({int(x) for x in re.findall(r"doc (\d+)", text)})
+    primary, secondary = set(), set()
+    for line in text.splitlines():
+        ids = [int(x) for x in re.findall(r"doc (\d+)", line)]
+        (secondary if "二级" in line else primary).update(ids)
     con = sqlite3.connect(DB)
-    missing = [d for d in docs if not con.execute("SELECT 1 FROM docs WHERE id=?", (d,)).fetchone()]
+    # doc 1–48 是股东信（一级）；49+ 是第三方问答汇编（二级，不进仓库快照）
+    missing = [d for d in sorted(primary) if d <= 48
+               and not con.execute("SELECT 1 FROM docs WHERE id=?", (d,)).fetchone()]
     con.close()
     ok = len(rules) >= 11 and not missing
-    return ok, f"{len(rules)} 条规则｜引用 {len(docs)} 个 doc｜缺 {len(missing)} 个"
+    return ok, (f"{len(rules)} 条规则｜一级引用 {len(primary)} 个｜"
+                f"二级 {len(secondary)} 个（快照内不含，跳过）｜缺 {len(missing)} 个")
+
+
+def check_tone() -> tuple[bool, str]:
+    """语气样例必须通过 tone_check 的 7 项硬指标。"""
+    import tone_check as TC
+
+    sample = ROOT / "examples" / "voice-apple.txt"
+    if not sample.exists():
+        return False, "样例不存在"
+    checks, passed = TC.check(sample.read_text(encoding="utf-8"))
+    total = len(checks)
+    return passed == total, f"{passed}/{total}"
 
 
 def main() -> int:
@@ -88,6 +109,7 @@ def main() -> int:
         ("时间线（美银 2017Q3 行权）", check_timeline),
         ("市值分解（2020Q1 是股价不是减仓）", check_decompose),
         ("框架完整性（规则数 + 引用存在）", check_framework),
+        ("语气样例（7 项硬指标）", check_tone),
     ]
     passed = 0
     print("巴菲特技能 · 离线自检")

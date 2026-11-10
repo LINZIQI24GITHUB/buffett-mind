@@ -1,5 +1,17 @@
 # Buffett Mind · 巴菲特思路
 
+[![demo](https://img.shields.io/badge/demo-6%2F6%20passing-brightgreen)](scripts/demo.py)
+[![data](https://img.shields.io/badge/13F-111%20quarters-blue)](data/holdings.csv)
+[![letters](https://img.shields.io/badge/shareholder%20letters-48-orange)](corpus/)
+[![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
+
+**用他自己的原话和真实持仓，反推决策框架；每一句都能查，每一个仓位都能对。**
+
+[English](README_EN.md) · [快速开始](#快速开始) · [为什么不一样](#为什么不一样) · [数据](#数据)
+
+![第一人称回答](assets/answer-demo.png)
+
+
 用**他自己的原话**和**真实持仓**反推巴菲特的决策框架，然后据此回答投资问题——
 而不是再写一本语录集。
 
@@ -35,6 +47,21 @@
 按他的框架，这个问题他会怎么看？             → answer.py（证据包）
 他对 A 股公司怎么看？                       → ashare_fit.py（推演：用尺子量，不是他的判断）
 ```
+
+## 为什么不一样
+
+| | 纯提示词包 | 信件合集 | **本仓库** |
+|---|---|---|---|
+| 股东信全文 + 检索 | 摘录 | ✅ | ✅ |
+| 13F 十一年的持仓历史 | ❌ | ❌ | ✅ 111 季度 |
+| 建仓成本（VWAP、拆股） | ❌ | ❌ | ✅ |
+| 引语校验（拒绝假引语） | ❌ | ❌ | ✅ |
+| 言行对账 | ❌ | ❌ | ✅ 133 组 |
+| 语气量化 | ❌ | ❌ | ✅ 18,568 句 |
+| A 股适配 | ❌ | ❌ | ✅ |
+| 离线自检 | ❌ | ❌ | ✅ 6/6 |
+
+![自检输出](assets/demo-output.png)
 
 ## 快速开始
 

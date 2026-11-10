@@ -72,6 +72,23 @@ python scripts/answer.py --question "现在怎么看黄金"  # 回答证据包
 python scripts/demo.py                             # 离线自检
 ```
 
+## 视频语料（转写）
+
+年会与访谈可以转写成带时间戳的段落，并入同一套检索，引用能直接跳到秒数。
+
+```bash
+# 转写（需 .venv-whisper，模型在 .models/whisper-small）
+python scripts/transcribe_video.py --url "<youtube url>" --out data/video/<name>.jsonl
+
+# 入库（按 ~700 字符合并，生成 ?t=秒 深链）
+python scripts/build_video_corpus.py --segments data/video/<name>.jsonl     --title "2024 伯克希尔股东大会" --url "<url>" --year 2024
+
+# 数字抽检（ASR 错在数字和专名，必须人工过一遍）
+python scripts/validate_transcript.py --segments data/video/<name>.jsonl --tsv out/numbers.tsv
+```
+
+实测：small + int8 + VAD 在 14 核 CPU 上约 12 倍实时；转写稿只落盘，不进对话上下文。
+
 ## A 股场景：用他的尺子量
 
 他对 A 股公司几乎没有公开表态（658 篇语料里，沪深300 前十大零命中），
@@ -97,6 +114,24 @@ R7 资本配置 → 股息率；R1 能力圈 → 行业（按代码映射，不�
 |---|---|
 | 问题或公司名 | 中文/英文/代码都行，实体表覆盖 17 家 |
 | 联网（仅首次） | 建语料和 13F 缓存时需要；之后全部离线 |
+
+## 输出风格：第一人称，像在路演
+
+回答任何投资问题时，**用巴菲特的第一人称讲**，不是复述资料：
+
+- 先说结论一句话，再给数字，再讲道理，最后承认看不清的地方
+- 至少 3 个可核对数字（股数、市值、百分比、年数）
+- 句长 ≤25 字为主，超过 40 字必须拆
+- 不用行话、不用感叹号、不喊口号、不给点位预测
+- 引用逐字，附 doc_id；拿不准就转述，不编引号
+- 可以有表格，但表格是配角：用来放数字，列名也用他的口吻
+- 开头标「推演 · 非巴菲特本人观点」，结尾写明 AI 生成、不构成投资建议
+
+完整语气规范见 `references/voice.md`（含语料统计：平均句长 18.4 词、42.6% 的句子带数字）。
+
+```bash
+python scripts/answer.py --question "苹果还值得长期持有吗" --voice
+```
 
 ## 输出格式
 

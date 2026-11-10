@@ -1,0 +1,812 @@
+{
+ "025816109": {
+  "ticker": "AXP",
+  "name": "AMERICAN EXPRESS CO",
+  "exch": "US"
+ },
+ "064058100": {
+  "ticker": "BNY",
+  "name": "BANK OF NEW YORK MELLON CORP",
+  "exch": "US"
+ },
+ "167250109": {},
+ "191216100": {
+  "ticker": "KO",
+  "name": "COCA-COLA CO/THE",
+  "exch": "US"
+ },
+ "20825C104": {
+  "ticker": "COP",
+  "name": "CONOCOPHILLIPS",
+  "exch": "US"
+ },
+ "22160K105": {
+  "ticker": "COST",
+  "name": "COSTCO WHOLESALE CORP",
+  "exch": "US"
+ },
+ "23918K108": {
+  "ticker": "DVA",
+  "name": "DAVITA INC",
+  "exch": "US"
+ },
+ "244199105": {
+  "ticker": "DE",
+  "name": "DEERE & CO",
+  "exch": "US"
+ },
+ "25470M109": {},
+ "25490A309": {},
+ "369604103": {},
+ "37045V100": {
+  "ticker": "GM",
+  "name": "GENERAL MOTORS CO",
+  "exch": "US"
+ },
+ "37733W105": {},
+ "459200101": {
+  "ticker": "IBM",
+  "name": "INTL BUSINESS MACHINES CORP",
+  "exch": "US"
+ },
+ "478160104": {
+  "ticker": "JNJ",
+  "name": "JOHNSON & JOHNSON",
+  "exch": "US"
+ },
+ "50076Q106": {},
+ "523768109": {},
+ "531229102": {},
+ "55261F104": {
+  "ticker": "MTB",
+  "name": "M & T BANK CORP",
+  "exch": "US"
+ },
+ "57636Q104": {
+  "ticker": "MA",
+  "name": "MASTERCARD INC - A",
+  "exch": "US"
+ },
+ "584404107": {},
+ "609207105": {
+  "ticker": "MDLZ",
+  "name": "MONDELEZ INTERNATIONAL INC-A",
+  "exch": "US"
+ },
+ "615369105": {
+  "ticker": "MCO",
+  "name": "MOODY'S CORP",
+  "exch": "US"
+ },
+ "637071101": {},
+ "718546104": {
+  "ticker": "PSX",
+  "name": "PHILLIPS 66",
+  "exch": "US"
+ },
+ "740189105": {},
+ "742718109": {
+  "ticker": "PG",
+  "name": "PROCTER & GAMBLE CO/THE",
+  "exch": "US"
+ },
+ "80105N105": {
+  "ticker": "SNY",
+  "name": "SANOFI-ADR",
+  "exch": "US"
+ },
+ "85571Q102": {},
+ "867224107": {
+  "ticker": "SU",
+  "name": "SUNCOR ENERGY INC",
+  "exch": "US"
+ },
+ "891027104": {},
+ "902973304": {
+  "ticker": "USB",
+  "name": "US BANCORP",
+  "exch": "US"
+ },
+ "903293405": {},
+ "911312106": {
+  "ticker": "UPS",
+  "name": "UNITED PARCEL SERVICE-CL B",
+  "exch": "US"
+ },
+ "92343E102": {
+  "ticker": "VRSN",
+  "name": "VERISIGN INC",
+  "exch": "US"
+ },
+ "92345Y106": {
+  "ticker": "VRSK",
+  "name": "VERISK ANALYTICS INC",
+  "exch": "US"
+ },
+ "92553P201": {
+  "ticker": "VIAB",
+  "name": "VIACOM INC-CLASS B",
+  "exch": "UW"
+ },
+ "92826C839": {
+  "ticker": "V",
+  "name": "VISA INC-CLASS A SHARES",
+  "exch": "US"
+ },
+ "92927K102": {},
+ "931142103": {
+  "ticker": "WMT",
+  "name": "WALMART INC",
+  "exch": "US"
+ },
+ "939640108": {},
+ "949746101": {
+  "ticker": "WFC",
+  "name": "WELLS FARGO & CO",
+  "exch": "US"
+ },
+ "30231G102": {},
+ "38141G104": {
+  "ticker": "GS",
+  "name": "GOLDMAN SACHS GROUP INC",
+  "exch": "US"
+ },
+ "384637104": {
+  "ticker": "GHC",
+  "name": "GRAHAM HOLDINGS CO-CLASS B",
+  "exch": "US"
+ },
+ "G5480U104": {},
+ "92343V104": {
+  "ticker": "VZ",
+  "name": "VERIZON COMMUNICATIONS INC",
+  "exch": "US"
+ },
+ "G5480U120": {},
+ "16117M305": {},
+ "67011P100": {
+  "ticker": "DNOW",
+  "name": "DNOW INC",
+  "exch": "US"
+ },
+ "30219G108": {},
+ "531229300": {},
+ "58441K100": {},
+ "76131D103": {
+  "ticker": "QSR",
+  "name": "RESTAURANT BRANDS INTERN",
+  "exch": "US"
+ },
+ "90130A101": {},
+ "G0750C108": {},
+ "00206R102": {
+  "ticker": "T",
+  "name": "AT&T INC",
+  "exch": "US"
+ },
+ "500754106": {
+  "ticker": "KHC",
+  "name": "KRAFT HEINZ CO/THE",
+  "exch": "US"
+ },
+ "G5480U138": {},
+ "G5480U153": {},
+ "49456B101": {
+  "ticker": "KMI",
+  "name": "KINDER MORGAN INC",
+  "exch": "US"
+ },
+ "037833100": {
+  "ticker": "AAPL",
+  "name": "APPLE INC",
+  "exch": "US"
+ },
+ "16119P108": {
+  "ticker": "CHTR",
+  "name": "CHARTER COMMUNICATIONS INC-A",
+  "exch": "US"
+ },
+ "531229409": {},
+ "531229607": {},
+ "531229854": {},
+ "531229870": {},
+ "02376R102": {
+  "ticker": "AAL",
+  "name": "AMERICAN AIRLINES GROUP INC",
+  "exch": "US"
+ },
+ "247361702": {
+  "ticker": "DAL",
+  "name": "DELTA AIR LINES INC",
+  "exch": "US"
+ },
+ "910047109": {
+  "ticker": "UAL",
+  "name": "UNITED AIRLINES HOLDINGS INC",
+  "exch": "US"
+ },
+ "61166W101": {},
+ "82968B103": {},
+ "844741108": {
+  "ticker": "LUV",
+  "name": "SOUTHWEST AIRLINES CO",
+  "exch": "US"
+ },
+ "862121100": {},
+ "87165B103": {
+  "ticker": "SYF",
+  "name": "SYNCHRONY FINANCIAL",
+  "exch": "US"
+ },
+ "060505104": {
+  "ticker": "BAC",
+  "name": "BANK OF AMERICA CORP",
+  "exch": "US"
+ },
+ "881624209": {},
+ "G9001E102": {},
+ "G9001E128": {},
+ "46625H100": {
+  "ticker": "JPM",
+  "name": "JPMORGAN CHASE & CO",
+  "exch": "US"
+ },
+ "68389X105": {
+  "ticker": "ORCL",
+  "name": "ORACLE CORP",
+  "exch": "US"
+ },
+ "693475105": {
+  "ticker": "PNC",
+  "name": "PNC FINANCIAL SERVICES GROUP",
+  "exch": "US"
+ },
+ "89417E109": {
+  "ticker": "TRV",
+  "name": "TRAVELERS COS INC/THE",
+  "exch": "US"
+ },
+ "756577102": {},
+ "G85158106": {},
+ "023135106": {
+  "ticker": "AMZN",
+  "name": "AMAZON.COM INC",
+  "exch": "US"
+ },
+ "37959E102": {
+  "ticker": "GL",
+  "name": "GLOBE LIFE INC",
+  "exch": "US"
+ },
+ "674599105": {
+  "ticker": "OXY",
+  "name": "OCCIDENTAL PETROLEUM CORP",
+  "exch": "US"
+ },
+ "74967X103": {
+  "ticker": "RH",
+  "name": "RH",
+  "exch": "US"
+ },
+ "09062X103": {
+  "ticker": "BIIB",
+  "name": "BIOGEN INC",
+  "exch": "US"
+ },
+ "501044101": {
+  "ticker": "KR",
+  "name": "KROGER CO",
+  "exch": "US"
+ },
+ "78462F103": {
+  "ticker": "SPY",
+  "name": "SS SPDR S&P 500 ETF TRUST-US",
+  "exch": "US"
+ },
+ "922908363": {
+  "ticker": "VOO",
+  "name": "VANGUARD S&P 500 ETF",
+  "exch": "US"
+ },
+ "067901108": {},
+ "00287Y109": {
+  "ticker": "ABBV",
+  "name": "ABBVIE INC",
+  "exch": "US"
+ },
+ "110122108": {
+  "ticker": "BMY",
+  "name": "BRISTOL-MYERS SQUIBB CO",
+  "exch": "US"
+ },
+ "58933Y105": {
+  "ticker": "MRK",
+  "name": "MERCK & CO. INC.",
+  "exch": "US"
+ },
+ "717081103": {
+  "ticker": "PFE",
+  "name": "PFIZER INC",
+  "exch": "US"
+ },
+ "833445109": {
+  "ticker": "SNOW",
+  "name": "SNOWFLAKE INC",
+  "exch": "US"
+ },
+ "872590104": {
+  "ticker": "TMUS",
+  "name": "T-MOBILE US INC",
+  "exch": "US"
+ },
+ "166764100": {
+  "ticker": "CVX",
+  "name": "CHEVRON CORP",
+  "exch": "US"
+ },
+ "571748102": {
+  "ticker": "MRSH",
+  "name": "MARSH & MCLENNAN COS",
+  "exch": "US"
+ },
+ "G0403H108": {},
+ "68622V106": {
+  "ticker": "OGN",
+  "name": "ORGANON & CO",
+  "exch": "US"
+ },
+ "339750101": {
+  "ticker": "FND",
+  "name": "FLOOR & DECOR HOLDINGS INC-A",
+  "exch": "US"
+ },
+ "G7709Q104": {},
+ "00507V109": {},
+ "G6693N103": {},
+ "02005N100": {
+  "ticker": "ALLY",
+  "name": "ALLY FINANCIAL INC",
+  "exch": "US"
+ },
+ "150870103": {
+  "ticker": "CE",
+  "name": "CELANESE CORP",
+  "exch": "US"
+ },
+ "172967424": {
+  "ticker": "C",
+  "name": "CITIGROUP INC",
+  "exch": "US"
+ },
+ "40434L105": {
+  "ticker": "HPQ",
+  "name": "HP INC",
+  "exch": "US"
+ },
+ "570535104": {
+  "ticker": "MKL",
+  "name": "MARKEL GROUP INC",
+  "exch": "US"
+ },
+ "58155Q103": {
+  "ticker": "MCK",
+  "name": "MCKESSON CORP",
+  "exch": "US"
+ },
+ "92556H206": {},
+ "47233W109": {
+  "ticker": "JEF",
+  "name": "JEFFERIES FINANCIAL GROUP IN",
+  "exch": "US"
+ },
+ "546347105": {
+  "ticker": "LPX",
+  "name": "LOUISIANA-PACIFIC CORP",
+  "exch": "US"
+ },
+ "874039100": {
+  "ticker": "TSM",
+  "name": "TAIWAN SEMICONDUCTOR-SP ADR",
+  "exch": "US"
+ },
+ "G6683N103": {},
+ "14040H105": {
+  "ticker": "COF",
+  "name": "CAPITAL ONE FINANCIAL CORP",
+  "exch": "US"
+ },
+ "25243Q205": {
+  "ticker": "DEO",
+  "name": "DIAGEO PLC-SPONSORED ADR",
+  "exch": "US"
+ },
+ "92852X103": {
+  "ticker": "VTS",
+  "name": "VITESSE ENERGY INC",
+  "exch": "US"
+ },
+ "23331A109": {
+  "ticker": "DHI",
+  "name": "DR HORTON INC",
+  "exch": "US"
+ },
+ "526057302": {
+  "ticker": "LEN/B",
+  "name": "LENNAR CORP - B SHS",
+  "exch": "US"
+ },
+ "62944T105": {
+  "ticker": "NVR",
+  "name": "NVR INC",
+  "exch": "US"
+ },
+ "047726302": {
+  "ticker": "BATRK",
+  "name": "ATLANTA BRAVES HOLDINGS IN-C",
+  "exch": "US"
+ },
+ "531229722": {},
+ "531229748": {},
+ "531229789": {},
+ "531229813": {},
+ "H1467J104": {},
+ "422806208": {
+  "ticker": "HEI/A",
+  "name": "HEICO CORP-CLASS A",
+  "exch": "US"
+ },
+ "90384S303": {
+  "ticker": "ULTA",
+  "name": "ULTA BEAUTY INC",
+  "exch": "US"
+ },
+ "25754A201": {
+  "ticker": "DPZ",
+  "name": "DOMINO'S PIZZA INC",
+  "exch": "US"
+ },
+ "73278L105": {
+  "ticker": "POOL",
+  "name": "POOL CORP",
+  "exch": "US"
+ },
+ "829933100": {
+  "ticker": "SIRI",
+  "name": "SIRIUS XM HOLDINGS INC",
+  "exch": "US"
+ },
+ "21036P108": {
+  "ticker": "STZ",
+  "name": "CONSTELLATION BRANDS INC-A",
+  "exch": "US"
+ },
+ "526057104": {
+  "ticker": "LEN",
+  "name": "LENNAR CORP-A",
+  "exch": "US"
+ },
+ "670346105": {
+  "ticker": "NUE",
+  "name": "NUCOR CORP",
+  "exch": "US"
+ },
+ "512816109": {
+  "ticker": "LAMR",
+  "name": "LAMAR ADVERTISING CO-A",
+  "exch": "US"
+ },
+ "91324P102": {
+  "ticker": "UNH",
+  "name": "UNITEDHEALTH GROUP INC",
+  "exch": "US"
+ },
+ "G0176J109": {},
+ "02079K305": {
+  "ticker": "GOOGL",
+  "name": "ALPHABET INC-CL A",
+  "exch": "US"
+ },
+ "530909100": {
+  "ticker": "LLYVA",
+  "name": "LIBERTY LIVE HOLDINGS-A",
+  "exch": "US"
+ },
+ "530909308": {
+  "ticker": "LLYVK",
+  "name": "LIBERTY LIVE HOLDINGS-C",
+  "exch": "US"
+ },
+ "531229755": {
+  "ticker": "FWONK",
+  "name": "LIBERTY MEDIA CORP-C",
+  "exch": "US"
+ },
+ "650111107": {
+  "ticker": "NYT",
+  "name": "NEW YORK TIMES CO-A",
+  "exch": "US"
+ },
+ "02079K107": {
+  "ticker": "GOOG",
+  "name": "ALPHABET INC-CL C",
+  "exch": "US"
+ },
+ "55616P104": {
+  "ticker": "M",
+  "name": "MACY'S INC",
+  "exch": "US"
+ },
+ "375766102": {},
+ "693622102": {},
+ "867914103": {},
+ "950817106": {},
+ "026874107": {},
+ "172967101": {},
+ "22160Q102": {},
+ "254687106": {
+  "ticker": "DIS",
+  "name": "WALT DISNEY CO/THE",
+  "exch": "US"
+ },
+ "313400301": {
+  "ticker": "FMCC",
+  "name": "FREDDIE MAC",
+  "exch": "US"
+ },
+ "313586109": {
+  "ticker": "FNMA",
+  "name": "FANNIE MAE",
+  "exch": "US"
+ },
+ "319963104": {},
+ "364730101": {},
+ "369550108": {
+  "ticker": "GD",
+  "name": "GENERAL DYNAMICS CORP",
+  "exch": "US"
+ },
+ "390568103": {},
+ "56418H100": {
+  "ticker": "MAN",
+  "name": "MANPOWERGROUP INC",
+  "exch": "US"
+ },
+ "654106103": {
+  "ticker": "NKE",
+  "name": "NIKE INC -CL B",
+  "exch": "US"
+ },
+ "872241104": {},
+ "911596104": {},
+ "911905107": {},
+ "930059100": {
+  "ticker": "WDR",
+  "name": "WADDELL & REED FINANCIAL-A",
+  "exch": "UN"
+ },
+ "930059209": {},
+ "949740104": {},
+ "989390109": {},
+ "365558105": {},
+ "594918203": {},
+ "770323103": {
+  "ticker": "RHI",
+  "name": "ROBERT HALF INC",
+  "exch": "US"
+ },
+ "171232101": {},
+ "301586103": {},
+ "670340105": {},
+ "224044957": {},
+ "26483B106": {},
+ "480074103": {},
+ "539320101": {},
+ "361448103": {
+  "ticker": "GATX",
+  "name": "GATX CORP",
+  "exch": "US"
+ },
+ "760719104": {},
+ "06423A106": {},
+ "222372104": {},
+ "281020107": {
+  "ticker": "EIX",
+  "name": "EDISON INTERNATIONAL",
+  "exch": "US"
+ },
+ "493267108": {
+  "ticker": "KEY",
+  "name": "KEYCORP",
+  "exch": "US"
+ },
+ "882848104": {},
+ "902911106": {},
+ "82028K200": {},
+ "493482103": {},
+ "820286102": {},
+ "093671105": {
+  "ticker": "HRB",
+  "name": "H&R BLOCK INC",
+  "exch": "US"
+ },
+ "152312104": {},
+ "428040109": {},
+ "624756102": {
+  "ticker": "MLI",
+  "name": "MUELLER INDUSTRIES INC",
+  "exch": "US"
+ },
+ "364760108": {
+  "ticker": "GAP",
+  "name": "GAP INC/THE",
+  "exch": "US"
+ },
+ "86816810F": {},
+ "895953107": {},
+ "360921100": {},
+ "693718108": {
+  "ticker": "PCAR",
+  "name": "PACCAR INC",
+  "exch": "US"
+ },
+ "36225X100": {},
+ "26483E100": {},
+ "478129109": {},
+ "505336107": {
+  "ticker": "LZB",
+  "name": "LA-Z-BOY INC",
+  "exch": "US"
+ },
+ "81211K100": {},
+ "81211K209": {},
+ "778296103": {
+  "ticker": "ROST",
+  "name": "ROSS STORES INC",
+  "exch": "US"
+ },
+ "676220106": {},
+ "438516106": {},
+ "689899102": {},
+ "337932107": {
+  "ticker": "FE",
+  "name": "FIRSTENERGY CORP",
+  "exch": "US"
+ },
+ "029712106": {},
+ "462846106": {},
+ "260003108": {
+  "ticker": "DOV",
+  "name": "DOVER CORP",
+  "exch": "US"
+ },
+ "81217K100": {},
+ "681919106": {
+  "ticker": "OMC",
+  "name": "OMNICOM GROUP",
+  "exch": "US"
+ },
+ "086516101": {
+  "ticker": "BBY",
+  "name": "BEST BUY CO INC",
+  "exch": "US"
+ },
+ "200334100": {},
+ "52729N100": {},
+ "71646E100": {},
+ "972487102": {},
+ "264399106": {},
+ "404119109": {},
+ "053015103": {
+  "ticker": "ADP",
+  "name": "AUTOMATIC DATA PROCESSING",
+  "exch": "US"
+ },
+ "127209302": {},
+ "720279108": {},
+ "20030N200": {},
+ "81760N109": {},
+ "242370104": {},
+ "437076102": {
+  "ticker": "HD",
+  "name": "HOME DEPOT INC",
+  "exch": "US"
+ },
+ "529771107": {},
+ "548661107": {
+  "ticker": "LOW",
+  "name": "LOWE'S COS INC",
+  "exch": "US"
+ },
+ "902124106": {},
+ "03076C106": {
+  "ticker": "AMP",
+  "name": "AMERIPRISE FINANCIAL INC",
+  "exch": "US"
+ },
+ "035229103": {},
+ "67104A101": {},
+ "87612E106": {
+  "ticker": "TGT",
+  "name": "TARGET CORP",
+  "exch": "US"
+ },
+ "959802109": {
+  "ticker": "WU",
+  "name": "WESTERN UNION CO",
+  "exch": "US"
+ },
+ "G47766101": {},
+ "12189T104": {},
+ "655844108": {
+  "ticker": "NSC",
+  "name": "NORFOLK SOUTHERN CORP",
+  "exch": "US"
+ },
+ "907818108": {
+  "ticker": "UNP",
+  "name": "UNION PACIFIC CORP",
+  "exch": "US"
+ },
+ "260561105": {},
+ "143130102": {
+  "ticker": "KMX",
+  "name": "CARMAX INC",
+  "exch": "US"
+ },
+ "G4776G101": {},
+ "929251106": {},
+ "50075N104": {},
+ "892893108": {},
+ "629377508": {
+  "ticker": "NRG",
+  "name": "NRG ENERGY INC",
+  "exch": "US"
+ },
+ "278058102": {},
+ "210371100": {},
+ "62985Q101": {},
+ "075887109": {
+  "ticker": "BDX",
+  "name": "BECTON DICKINSON AND CO",
+  "exch": "US"
+ },
+ "641069406": {
+  "ticker": "NSRGY",
+  "name": "NESTLE SA-SPONS ADR",
+  "exch": "US"
+ },
+ "760759100": {
+  "ticker": "RSG",
+  "name": "REPUBLIC SERVICES INC",
+  "exch": "US"
+ },
+ "94973V107": {},
+ "337738108": {
+  "ticker": "FISV",
+  "name": "FISERV INC",
+  "exch": "US"
+ },
+ "256677105": {
+  "ticker": "DG",
+  "name": "DOLLAR GENERAL CORP",
+  "exch": "US"
+ },
+ "126650100": {
+  "ticker": "CVS",
+  "name": "CVS HEALTH CORP",
+  "exch": "US"
+ },
+ "25490A101": {},
+ "458140100": {
+  "ticker": "INTC",
+  "name": "INTEL CORP",
+  "exch": "US"
+ },
+ "530322106": {},
+ "G47791101": {},
+ "039483102": {
+  "ticker": "ADM",
+  "name": "ARCHER-DANIELS-MIDLAND CO",
+  "exch": "US"
+ }
+}

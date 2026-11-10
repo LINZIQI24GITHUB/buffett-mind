@@ -43,6 +43,14 @@ INDUSTRY = {
     "603259": ("CXO", "out"),
     "300308": ("光模块", "out"),
     "300502": ("光模块", "out"),
+    "000858": ("白酒", "in"),
+    "000651": ("家电", "in"),
+    "601398": ("银行", "in"),
+    "600887": ("食品", "in"),
+    "601088": ("煤炭", "edge"),
+    "601288": ("银行", "in"),
+    "601988": ("银行", "in"),
+    "600028": ("石化", "edge"),
 }
 TIER_TEXT = {"in": "能力圈内", "edge": "能力圈边缘", "out": "圈外"}
 
@@ -51,11 +59,15 @@ LOCAL_BASE = pathlib.Path(r"C:\Users\Administrator\Documents\deepseek-harness\de
 SLUG = {"600519": "moutai", "300750": "catl", "300308": "zjxc", "601318": "pingan"}
 
 
+ASOF = None
+
+
 def annual(code: str) -> list[dict]:
     params = {
         "reportName": "RPT_LICO_FN_CPD",
         "columns": "SECURITY_CODE,SECURITY_NAME_ABBR,REPORTDATE,WEIGHTAVG_ROE,XSMLL,YSTZ,BASIC_EPS,ZXGXL",
-        "filter": f'(SECURITY_CODE="{code}")(REPORTDATE>=\'2014-01-01\')',
+        "filter": (f'(SECURITY_CODE="{code}")(REPORTDATE>=\'2014-01-01\')'
+                   + (f"(REPORTDATE<='{ASOF}')" if ASOF else "")),
         "pageSize": 80, "sortColumns": "REPORTDATE", "sortTypes": -1,
     }
     try:
@@ -68,8 +80,9 @@ def annual(code: str) -> list[dict]:
 
 def valuation(code: str) -> dict:
     params = {"reportName": "RPT_VALUEANALYSIS_DET", "columns": "ALL",
-              "filter": f'(SECURITY_CODE="{code}")', "pageSize": 1,
-              "sortColumns": "TRADE_DATE", "sortTypes": -1}
+              "filter": (f'(SECURITY_CODE="{code}")'
+                         + (f"(TRADE_DATE<='{ASOF}')" if ASOF else "")),
+              "pageSize": 1, "sortColumns": "TRADE_DATE", "sortTypes": -1}
     try:
         r = requests.get(DC, headers=UA, params=params, timeout=20)
         row = (r.json().get("result") or {}).get("data", [{}])[0]
@@ -199,8 +212,12 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="用巴菲特框架给 A 股分档（推演）")
     ap.add_argument("--codes", required=True, help="逗号分隔，如 600519,300750")
     ap.add_argument("--local", action="store_true", help="用本地财报（离线）")
+    ap.add_argument("--asof", default=None, help="按指定日期回看（YYYY-MM-DD），避免后视镜")
     args = ap.parse_args()
     codes = [str(c).strip().zfill(6) for c in args.codes.split(",") if c.strip()]
+    global ASOF
+    ASOF = args.asof
+    print(f"（回看基准日：{ASOF}）" if ASOF else "")
     return run_local(codes) if args.local else run_online(codes)
 
 

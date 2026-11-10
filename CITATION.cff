@@ -1,0 +1,16 @@
+﻿cff-version: 1.2.0
+message: "If you use this corpus or the framework, cite it as below."
+title: "Buffett Mind: a verifiable Buffett corpus and decision framework"
+version: "0.2.0"
+date-released: "2026-11-10"
+url: "https://github.com/LINZIQI24GITHUB/finansi-buffett-mind"
+authors:
+  - name: "LINZIQI24GITHUB"
+license: MIT
+references:
+  - type: dataset
+    title: "Berkshire Hathaway shareholder letters, 1977-2024"
+    url: "https://www.berkshirehathaway.com/letters/letters.html"
+  - type: dataset
+    title: "SEC EDGAR 13F filings, Berkshire Hathaway, 1998Q4-2026Q2"
+    url: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001067983"

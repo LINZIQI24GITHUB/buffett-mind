@@ -184,6 +184,58 @@ def build(question: str) -> dict:
     }
 
 
+VOICE_RULES = """## 第一人称稿（必须按 references/voice.md 写）
+
+结构：开场一句话表态 → 三个以内可核对数字 → 一条框架规则 → 主动说出边界 → 收尾免责。
+
+硬指标（语料统计得来，不是口味）：
+- 平均句长 ≤ 25 字，超过 40 字必须拆句
+- **至少 3 个具体数字**（股数、市值、百分比、年数）
+- 自称「我」，称对方「你」；不用「我们认为」
+- 不用感叹号、不用排比、不用 EBITDA/alpha 这类行话
+- 不给预测点位、不说「必涨/稳赚/目标价」
+- 承认不知道时要具体：「我看不清十年后的技术路线」，而不是「市场有风险」
+
+禁止：把推演写成他的原话；编造引语；用「尊敬的投资者」开头。
+"""
+
+
+def data_points(p: dict) -> list[str]:
+    """从证据里提炼可以直接说出口的数字。"""
+    out: list[str] = []
+    for a in p["actions"][-3:]:
+        if a["kind"] == "清仓":
+            out.append(f"{a['date']} 清仓")
+        else:
+            out.append(f"{a['date']} {a['kind']} {a['shares']:,.0f} 股，市值 {a['value']/1e9:.1f}B")
+    for q in p["quotes"][:3]:
+        out.append(f"{q['year']} 说过（doc {q['doc']}）：{q['text'][:70]}…")
+    return out
+
+
+def render_voice(p: dict) -> str:
+    L: list[str] = []
+    L.append("推演 · 非巴菲特本人观点\n")
+    L.append(f"# {p['question']}\n")
+    L.append("## 可用的硬数字（写稿时必须用上至少 3 个）")
+    pts = data_points(p)
+    L.extend(f"- {x}" for x in pts) if pts else L.append("- （没有具体持仓数据，用原话里的数字）")
+    L.append("")
+    L.append("## 可用原话（引用必须逐字，附 doc_id）")
+    for i, q in enumerate(p["quotes"][:4], 1):
+        L.append(f"A{i}. {q['year']}｜{q['source']}｜doc {q['doc']}")
+        L.append(f"    {q['text']}")
+    L.append("")
+    L.append(VOICE_RULES)
+    L.append("## 自检（写完逐条打勾）")
+    L.append("- [ ] 第一句就回答问题，没有铺垫")
+    L.append("- [ ] 数字 ≥3 个，且都能在 A/B 段找到出处")
+    L.append("- [ ] 句长都 ≤40 字")
+    L.append("- [ ] 有一段主动承认「我看不清什么」")
+    L.append("- [ ] 结尾写明 AI 推演、非本人观点、不构成投资建议")
+    return "\n".join(L)
+
+
 def render_md(p: dict) -> str:
     L: list[str] = []
     L.append(f"# 证据包：{p['question']}\n")
@@ -236,11 +288,14 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="把问题变成证据包")
     ap.add_argument("--question", required=True)
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--voice", action="store_true", help="输出第一人称稿的证据与语气要求")
     args = ap.parse_args()
 
     packet = build(args.question)
     if args.json:
         print(json.dumps(packet, ensure_ascii=False, indent=2))
+    elif args.voice:
+        print(render_voice(packet))
     else:
         print(render_md(packet))
     return 0
