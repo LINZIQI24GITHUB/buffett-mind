@@ -38,6 +38,7 @@ def check_en(text: str) -> tuple[list[tuple[str, bool, str]], int]:
     num_sents = sum(1 for x in sents if re.search(r"\d", x)) / len(sents)
     first_person = sum(1 for x in sents if re.search(r"\b(I|we)\b", x)) / len(sents)
     banned = [w for w in BANNED_EN if w in text.lower()]
+    n_tags = len(re.findall(r"\[[^\]]+\]", text))
     checks = [
         ("平均句长 12–25 词", 12 <= avg <= 25, f"{avg:.1f} 词（{len(sents)} 句）"),
         ("长句（≥40 词）≤10%", long_ratio <= 0.10, f"{long_ratio*100:.0f}%"),
@@ -45,7 +46,7 @@ def check_en(text: str) -> tuple[list[tuple[str, bool, str]], int]:
         ("第一人称句子 ≥8%", first_person >= 0.08, f"{first_person*100:.0f}%"),
         ("无行话", not banned, ", ".join(banned) or "无"),
         ("含免责声明", any(h in text for h in ("not investment advice", "AI reconstruction", "not my words")), ""),
-        ("来源标注 ≥3 处", len(re.findall(r"\[[^\]]+\]", text)) >= 3, f"{len(re.findall(r'\[[^\]]+\]', text))} 处"),
+        ("来源标注 ≥3 处", n_tags >= 3, f"{n_tags} 处"),
     ]
     passed = sum(1 for _, ok, _ in checks if ok)
     return checks, passed
