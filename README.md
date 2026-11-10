@@ -9,6 +9,9 @@
 
 [English](README_EN.md) · [快速开始](#快速开始) · [为什么不一样](#为什么不一样) · [数据](#数据)
 
+**Homepage** · <https://finansi.work/skills/buffett-mind>
+**Install** · 把本目录复制到 `.agents/skills/buffett-mind`（或从 Releases 取数据包解压），clone 后即可离线跑 `python scripts/demo.py`
+
 ![第一人称回答](assets/answer-demo.png)
 
 
@@ -67,9 +70,10 @@
 
 ```bash
 pip install -r requirements.txt
+python scripts/demo.py          # 仓库自带快照，clone 即可跑，6/6
 
-# 方式一：下载预构建数据（Releases 里，约 30MB）
-#   解压后把 corpus/ 和 data/ 放到本目录
+# 需要全量数据（610 条问答 + 全量价格 + 视频转写）：
+#   从 Releases 下载数据包，解压后把 corpus/ 和 data/ 放回本目录
 
 # 方式二：自己抓（联网约 15 分钟）
 python scripts/build_corpus.py --out corpus     # 48 封股东信 + 610 条问答
@@ -105,10 +109,11 @@ R7 资本配置 → 股息率；R1 能力圈 → 行业（按代码映射）。
 
 ## 数据与许可
 
-- 本仓库**不包含**语料与行情数据：股东信版权归 Berkshire，问答汇编属第三方，
-  行情来自 Yahoo，均有再分发限制
-- Releases 里的预构建包是**临时便利**，随时可能删除；长期使用请自己跑构建脚本
-- 代码 MIT
+- 仓库内是**可运行的精简快照**：48 封股东信索引（4.2 MB）、111 季度 13F 持仓、
+  一段 2019–2020 的价格窗口——clone 下来就能跑 `demo.py`（6/6）和大部分命令
+- **完整语料与行情**（610 条问答、2019 年前后的全量价格、历年视频转写）不随仓库分发，
+  见 Releases 数据包；问答汇编属第三方、行情有再分发限制，故仅本地使用
+- 代码 MIT；引用原文请注明 Berkshire 出处
 
 ## 局限
 
