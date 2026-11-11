@@ -92,6 +92,28 @@ python scripts/validate_transcript.py --segments data/video/<name>.jsonl --tsv o
 
 实测：small + int8 + VAD 在 14 核 CPU 上约 12 倍实时；转写稿只落盘，不进对话上下文。
 
+## 视频语料：15 场年会 + 提问/回答标注
+
+2011–2025 的伯克希尔股东大会已转写成带时间戳的段落，共 6,239 段。
+每段标了 `[提问]` 或 `[回答]`——提问者的话和巴菲特/芒格的回答分开，
+检索时可以直接用标签过滤。
+
+```bash
+# 转写（长音频自动切块，避免内存溢出）
+python scripts/transcribe_video.py --url "<youtube url>" --out data/video/2024-meeting.jsonl
+
+# 标注提问/回答
+python scripts/label_speakers.py --segments data/video/2024-meeting.jsonl --inplace
+
+# 入库（按说话人切段，带 ?t=秒 深链）
+python scripts/build_video_corpus.py --segments data/video/2024-meeting.jsonl \
+    --title "2024 伯克希尔股东大会" --url "<url>" --year 2024
+```
+
+**边界**：这是文本启发式，只能分「提问/回答」，**分不出巴菲特和芒格**。
+真正的说话人分离需要声纹（pyannote 需 GPU 与 HF token），本机未做。
+引用时如果要点名「这是巴菲特说的」，仍需人工确认上下文。
+
 ## A 股场景：用他的尺子量
 
 他对 A 股公司几乎没有公开表态（658 篇语料里，沪深300 前十大零命中），
