@@ -118,7 +118,10 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dates", required=True)
     ap.add_argument("--top", type=int, default=15, help="通过者超过这个数时按 PE 从低到高取")
-    ap.add_argument("--min-mcap", type=float, default=3.0)
+    ap.add_argument("--min-mcap", type=float, default=0.0,
+                    help="市值下限（十亿）。默认 0＝不设限；他的规模约束是伯克希尔体量所致，"
+                         "不是选股标准（1999 年会：需要几十亿美元级别的投资，所以排除很多市场）")
+    ap.add_argument("--tag", default="")
     args = ap.parse_args()
 
     for date in [d.strip() for d in args.dates.split(",") if d.strip()]:
@@ -152,7 +155,7 @@ def main() -> int:
         for r in picked:
             print(f"  {r['code']} {r['name'][:8]:<10} PE {r['pe']:.1f}  " +
                   "；".join(f"{k}:{v['why']}" for k, v in r["checks"].items()))
-        out = CACHE / f"checklist-{date}.json"
+        out = CACHE / f"checklist{args.tag}-{date}.json"
         out.write_text(json.dumps({"date": date, "picked": picked,
                                    "passed": [{"code": r["code"], "name": r["name"], "pe": r["pe"]}
                                               for r in passed]}, ensure_ascii=False), encoding="utf-8")
