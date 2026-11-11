@@ -95,15 +95,21 @@ python scripts/validate_transcript.py --segments data/video/<name>.jsonl --tsv o
 ## 视频语料：15 场年会 + 提问/回答标注
 
 2011–2025 的伯克希尔股东大会已转写成带时间戳的段落，共 6,239 段。
-每段标了 `[提问]` 或 `[回答]`——提问者的话和巴菲特/芒格的回答分开，
-检索时可以直接用标签过滤。
+每段标了 `[巴菲特]` / `[芒格]` / `[提问]`——三人分开，检索时可以直接用标签过滤。
+
+**标注方法与置信度**：纯声纹聚类在这批素材上不可靠（两人都是老年男声、单段只有 2–4 秒，
+实测把主持人开场和巴菲特回答混在一起）。所以改成「高精度、低召回」的规则：
+巴菲特点名芒格后的短回答、芒格口头禅（I have nothing to add / I agree / That's right）
+才标 `[芒格]`，其余默认 `[巴菲特]`。**没标到的芒格发言会留在巴菲特名下，宁漏不错。**
 
 ```bash
 # 转写（长音频自动切块，避免内存溢出）
 python scripts/transcribe_video.py --url "<youtube url>" --out data/video/2024-meeting.jsonl
 
-# 标注提问/回答
+# 标注提问/回答 + 分人（巴菲特/芒格/其他）
 python scripts/label_speakers.py --segments data/video/2024-meeting.jsonl --inplace
+python scripts/label_who.py --segments data/video/2024-meeting.jsonl --inplace
+# 2020（芒格缺席）与 2024 起（已去世）加 --no-munger
 
 # 入库（按说话人切段，带 ?t=秒 深链）
 python scripts/build_video_corpus.py --segments data/video/2024-meeting.jsonl \

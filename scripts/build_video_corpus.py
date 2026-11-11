@@ -27,23 +27,29 @@ def load(path: Path) -> list[dict]:
 
 
 def chunk(segs: list[dict], size: int = CHUNK_CHARS) -> list[dict]:
-    """合并成 ~size 字符的段落；说话人（Q/A）变化时强制断开，避免问答混在一段。"""
+    """合并成 ~size 字符的段落；说话人（Q/A 或 人）变化时强制断开。"""
     out, buf, start, end = [], [], None, None
-    speaker = None
+    key = None          # (Q/A, who) 用于比较
+    speaker, who = None, None
     for s in segs:
-        spk = s.get("speaker", "A")
+        k = (s.get("speaker", "A"), s.get("who", "buffett"))
         if start is None:
-            start, speaker = s["start"], spk
-        if spk != speaker and sum(len(x) for x in buf) >= 200:
-            out.append({"start": start, "end": end, "text": " ".join(buf), "speaker": speaker})
-            buf, start, speaker = [], s["start"], spk
+            start = s["start"]
+            key, speaker, who = k, k[0], k[1]
+        if k != key and sum(len(x) for x in buf) >= 150:
+            out.append({"start": start, "end": end, "text": " ".join(buf),
+                        "speaker": speaker, "who": who})
+            buf, start = [], s["start"]
+            key, speaker, who = k, k[0], k[1]
         buf.append(s["text"])
         end = s["end"]
         if sum(len(x) for x in buf) >= size:
-            out.append({"start": start, "end": end, "text": " ".join(buf), "speaker": speaker})
-            buf, start, speaker = [], None, None
+            out.append({"start": start, "end": end, "text": " ".join(buf),
+                        "speaker": speaker, "who": who})
+            buf, start, key, speaker, who = [], None, None, None, None
     if buf and start is not None:
-        out.append({"start": start, "end": end, "text": " ".join(buf), "speaker": speaker})
+        out.append({"start": start, "end": end, "text": " ".join(buf),
+                    "speaker": speaker, "who": who})
     return out
 
 
@@ -69,7 +75,15 @@ def main() -> int:
         if len(text) < 80:
             continue
         t = int(c["start"])
-        tag = "提问" if c.get("speaker") == "Q" else "回答"
+        who = c.get("who")
+        if who == "munger":
+            tag = "芒格"
+        elif who == "other":
+            tag = "提问" if c.get("speaker") == "Q" else "其他"
+        elif who == "buffett":
+            tag = "巴菲特"
+        else:
+            tag = "提问" if c.get("speaker") == "Q" else "回答"
         rows.append((args.year, f"{args.title} {t//60:02d}:{t%60:02d}",
                      f"{args.url}?t={t}", f"[{tag}] {text}"))
 
