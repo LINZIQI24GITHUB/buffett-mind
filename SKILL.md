@@ -120,6 +120,23 @@ python scripts/build_video_corpus.py --segments data/video/2024-meeting.jsonl \
 真正的说话人分离需要声纹（pyannote 需 GPU 与 HF token），本机未做。
 引用时如果要点名「这是巴菲特说的」，仍需人工确认上下文。
 
+## 全 A 筛选：每个季度末重跑一次
+
+用批量接口拉全市场估值 + 十年财务，给每只股票按框架打分（R2 护城河 60%、R3 安全边际 25%、
+R7 资本配置 15%），取 Top N 等权持有到下一个季度末。
+
+```bash
+# 某季度末的全市场打分（结果缓存在 data/screen/）
+python scripts/screen_market.py --asof 2026-09-30 --top 20
+python scripts/screen_market.py --asof 2026-09-30 --top 10 --min-mcap 20 --tag 20
+
+# 组合回测：季度换仓，对比沪深300ETF
+python scripts/screen_portfolio.py --start 2024-12-31 --end 2026-11-11 --top 10
+```
+
+**实测（2024-12-31 至 2026-11-11）**：全市场版累计 −5.6%、大盘版（市值≥200亿）−17.2%，
+同期沪深300ETF +8.9%。这套打分在这段行情里是价值风格拖累，不是稳定跑赢。
+
 ## A 股场景：用他的尺子量
 
 他对 A 股公司几乎没有公开表态（658 篇语料里，沪深300 前十大零命中），
