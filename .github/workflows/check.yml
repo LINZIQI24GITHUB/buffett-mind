@@ -27,5 +27,7 @@ jobs:
         run: |
           python scripts/quote.py --verify "price is what you pay, value is what you get"
           ! python scripts/quote.py --verify "this sentence was never said by warren buffett"
+      - name: Parameter provenance audit
+        run: python scripts/audit_params.py
       - name: Tests
         run: pytest -q
