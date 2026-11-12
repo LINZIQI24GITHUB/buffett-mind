@@ -39,14 +39,35 @@ $ python scripts/quote.py "gravity" --limit 3
 Machine transcription: expect occasional wrong words; check the timestamp before quoting. Munger is
 labelled only where confident (~100 segments); the rest defaults to Buffett.
 
-## Quick start
+## Three hard rules
 
-```bash
-pip install -r requirements.txt
-python scripts/demo.py          # 6 offline checks, no network
-python scripts/quote.py --verify "price is what you pay, value is what you get"
-python scripts/valuation.py --code 600519 --growth 6 --two-stage
-```
+1. **Every quote must verify** — `quote.py --verify` or it cannot be used
+2. **Market-value changes must be decomposed** — a drop is not a sale
+3. **Inference must be labelled** — if he never spoke on it, say so
+
+Rule 1 is not pedantry: the two most-quoted Buffett lines in Chinese — "if you wouldn't hold it ten
+years, don't hold it ten minutes" and "be fearful when others are greedy" — are both real (1996 and
+1986 letters). Yet his median holding period across 154 decisions is **2.3 years**.
+
+## Three counter-intuitive findings from 13F
+
+From 267 positions across 111 quarters (`scripts/behavior.py`, `behavior_tiers.py`):
+
+**1. He does not hold forever.** For 237 positions opened inside the window, median holding is
+**9 quarters**; 28% last less than a year; only 10% exceed ten years.
+
+**2. Large positions are a different species.**
+
+| Weight quintile | Weight range | Median hold | Median return | Held >20 quarters |
+|---|---|---:|---:|---:|
+| Smallest 20% | 0–0.1% | **2 quarters** | +9% | 6% |
+| Largest 20% | 1.6–51% | **28 quarters** | **+114%** | 61% |
+
+Apple: 42 quarters, +1073%. American Express: 111 quarters, +1526%. Counter-example: Kraft Heinz,
+44 quarters, −45%.
+
+**3. "He only buys in crashes" is a misreading.** In quarters when portfolio value fell >5%, 94% had at
+least one add; in quarters when it rose >5%, 98% did. Adding is routine, not a signal.
 
 ## What it can answer
 
@@ -78,15 +99,14 @@ python scripts/valuation.py --code 600519 --growth 6 --two-stage
 | A-share adaptation | ❌ | ❌ | ✅ |
 | Runnable offline demo | ❌ | ❌ | ✅ 6/6 checks |
 
-## Three hard rules
+## Quick start
 
-1. **Every quote must verify** — `quote.py --verify` or it cannot be used
-2. **Market-value changes must be decomposed** — a drop is not a sale
-3. **Inference must be labelled** — if he never spoke on it, say so
-
-Rule 1 is not pedantry: the two most-quoted Buffett lines in Chinese — "if you wouldn't hold it ten
-years, don't hold it ten minutes" and "be fearful when others are greedy" — are both real (1996 and
-1986 letters). Yet his median holding period across 154 decisions is **2.3 years**.
+```bash
+pip install -r requirements.txt
+python scripts/demo.py          # 6 offline checks, no network
+python scripts/quote.py --verify "price is what you pay, value is what you get"
+python scripts/valuation.py --code 600519 --growth 6 --two-stage
+```
 
 ## Valuation with his discount rate
 
@@ -95,12 +115,55 @@ years, don't hold it ten minutes" and "be fearful when others are greedy" — ar
 two-stage input: three years at your estimate, then 3% perpetual. The safety margin is a parameter,
 printed in `--help`, not hidden in code.
 
-## Data
+The tool only translates your growth judgement into a price. The judgement itself stays yours.
 
-The repo ships a compact, runnable snapshot (letters index + holdings + a small price window).
-Full price history, the third-party Q&A compilation, and the meeting transcripts live in the release
-asset, not in Git.
+## Parameter provenance audit
 
-## Disclaimer
+```bash
+python scripts/audit_params.py
+```
 
-Inference outputs are AI reconstructions, not Buffett's words, and not investment advice.
+Checks two things: every framework rule has at least one `doc` citation, and screening scripts carry
+no unsourced thresholds. **Enforced in CI** — a rule without a source fails the build.
+
+## Data and provenance levels
+
+| Level | Source | Count | Nature |
+|---|---|---|---|
+| 1 | Shareholder letters 1977–2024 | 48 | Verbatim, quotable |
+| 2 | Meeting/press Q&A 1994–2010 | 610 | Attendee notes (390 marked Notes), paraphrase |
+| 3 | Meeting video transcripts 2011–2025 | 6,769 | **Machine transcript**, speaker-split, timestamped |
+
+Level 2 is cited as "per meeting notes", never as verbatim. Level 3 is cited as "video transcript" —
+check the timestamp first.
+
+## Directory
+
+```
+SKILL.md              runtime instructions for the agent
+references/           framework / voice / understand / stable-business / growth / parameter-audit
+scripts/              51 scripts: corpus, holdings, search, valuation, behaviour, A-share
+corpus/               index.sqlite (7,427 docs) + shareholder letters
+data/                 holdings.csv (111 quarters, 14,060 rows), vwap, splits, cusip-map, cases.jsonl
+examples/             first-person answers, podcast script, A-share samples
+assets/               demo images
+tests/                pytest
+```
+
+## Limitations
+
+- **Transcripts contain recognition errors** — machine ASR plus speaker attribution; check the
+  timestamp before quoting. Munger is labelled only where confident (~100 segments); the rest
+  defaults to Buffett.
+- **Coverage is 2011–2025**; the 2026 meeting (chaired by Greg Abel) is not included.
+- 13F covers US long positions only (no overseas, bonds, private holdings, shorts) and lags 45 days.
+- Cost basis uses quarterly VWAP (assumes purchases spread evenly through the quarter), not actual
+  execution prices.
+- Structured 13F data starts in 2013; earlier filings are text tables, parsed, with a few quarters
+  missing prices.
+- The entity map covers 17 companies; extend `scripts/entities.py`.
+
+## License
+
+MIT. Cite Berkshire Hathaway when quoting. The Q&A compilation and meeting transcripts are for local
+use only and are not redistributed in this repository.
