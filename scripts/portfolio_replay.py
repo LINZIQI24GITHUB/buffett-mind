@@ -30,7 +30,7 @@ from ashare_core.store import BarsCache  # noqa: E402
 
 DATA = Path(r"C:\Users\Administrator\Documents\deepseek-harness\default-workspace\a-share-pack\data")
 CODES = {"000858": "五粮液", "000651": "格力电器", "000333": "美的集团", "600036": "招商银行"}
-START, END = "2024-09-24", "2026-11-09"
+START, END = "2024-09-24", "2026-11-11"
 CAPITAL = 1_000_000.0
 MAX_W = 0.25
 
@@ -50,7 +50,7 @@ DECISIONS = {
 def load(code: str) -> pd.Series:
     with EltdxProvider() as p:
         cache = BarsCache(p, DATA)
-        df = cache.get(code, "2024-09-01", "2026-11-09", "qfq")
+        df = cache.get(code, "2024-09-01", END, "qfq")
     s = pd.Series(df["close"].astype(float).values,
                   index=pd.to_datetime(df["date"].astype(str)))
     return s
@@ -136,6 +136,24 @@ def main() -> int:
         print(f"{d.date()!s:<12}{w['000858']*100:>9.1f}%{w['000651']*100:>9.1f}%"
               f"{w['000333']*100:>9.1f}%{w['600036']*100:>9.1f}%{snap['cash']*100:>9.1f}%{v:>12,.0f}")
 
+    # 等权买入持有（不做季度调仓）
+    eq_shares = {c: CAPITAL * MAX_W / px[c].loc[start_day] for c in CODES}
+    eq_nav = pd.Series([sum(eq_shares[c] * px[c].loc[d] for c in CODES) for d in days], index=days)
+    eq_ret = eq_nav.iloc[-1] / CAPITAL - 1
+
+    print("\n=== 对比 ===")
+    print(f"{'策略':<22}{'累计':>10}{'年化':>10}{'最大回撤':>10}")
+    port_cagr = (nav_s.iloc[-1] / CAPITAL) ** (1 / years) - 1
+    eq_cagr = (eq_nav.iloc[-1] / CAPITAL) ** (1 / years) - 1
+    eq_dd = (eq_nav / eq_nav.cummax() - 1).min()
+    print(f"{'季度调仓组合':<20}{cum.iloc[-1]*100:>9.2f}%{port_cagr*100:>9.2f}%{dd*100:>9.2f}%")
+    print(f"{'等权买入持有':<20}{eq_ret*100:>9.2f}%{eq_cagr*100:>9.2f}%{eq_dd*100:>9.2f}%")
+    print(f"{'沪深300ETF':<21}{bench_cum.iloc[-1]*100:>9.2f}%{'—':>10}{'—':>10}")
+    print("\n=== 个股区间收益（不复权口径已含分红再投资）===")
+    for c in CODES:
+        r = px[c].iloc[-1] / px[c].loc[start_day] - 1
+        print(f"  {CODES[c]:<10}{r*100:>8.2f}%")
+
     # 净值曲线
     fig, ax = plt.subplots(figsize=(11, 4.6), dpi=150)
     fig.patch.set_facecolor("#f4f1e9")
@@ -143,6 +161,8 @@ def main() -> int:
     ax.plot(nav_s.index, nav_s.values / CAPITAL * 100, color="#c0392b", lw=1.8, label="组合净值")
     ax.plot(bench.index, (1 + bench_cum.values) * 100, color="#8d8b83", lw=1.2,
             ls=(0, (5, 2)), label="沪深300ETF")
+    ax.plot(eq_nav.index, eq_nav.values / CAPITAL * 100, color="#2f6f8f", lw=1.2,
+            ls=(0, (3, 3)), label="等权买入持有")
     ax.axhline(100, color="#d9d3c5", lw=0.9)
     ax.legend(loc="upper left", frameon=False, fontsize=9, labelcolor="#3d3e3a")
     ax.set_ylabel("净值（起点=100）", fontsize=9, color="#666962")

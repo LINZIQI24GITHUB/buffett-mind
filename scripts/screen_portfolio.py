@@ -57,15 +57,16 @@ def main() -> int:
     ap.add_argument("--tag", default="", help="读取 screen<tag>-*.json")
     args = ap.parse_args()
 
-    screens = sorted(SCREEN.glob(f"screen{args.tag}-*.json"))
-    screens = [s for s in screens if args.start <= s.stem.split("-", 1)[1] <= args.end]
+    pattern = f"screen-{args.tag}-*.json" if args.tag else "screen-*.json"
+    screens = sorted(SCREEN.glob(pattern))
+    screens = [s for s in screens if args.start <= s.stem[-10:] <= args.end]
     if not screens:
         print("没有筛选结果，先跑 screen_market.py")
         return 2
 
     picks: dict[str, list[dict]] = {}
     for f in screens:
-        date = f.stem.split("-", 1)[1]
+        date = f.stem[-10:]
         rows = json.loads(f.read_text(encoding="utf-8"))
         picks[date] = rows[: args.top]
         print(f"{date}: " + "、".join(f"{r['name']}({r['score']:.0f})" for r in picks[date]))
