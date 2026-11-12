@@ -53,8 +53,16 @@ def latest_price(code: str) -> float | None:
     return float(df["close"].iloc[-1]) if len(df) else None
 
 
-def fair_pe(g: float, r: float) -> float | None:
-    return 1.0 / (r - g) if r > g else None
+def fair_pe(g: float, r: float, terminal: float | None = None, years: int = 3) -> float | None:
+    """永续模型；给了 terminal 就用两阶段（前 years 年 g，之后 terminal）。"""
+    if terminal is None:
+        return 1.0 / (r - g) if r > g else None
+    if r <= terminal:
+        return None
+    pv = sum((1 + g) ** t / (1 + r) ** t for t in range(1, years + 1))
+    e = (1 + g) ** years
+    pv += (e * (1 + terminal) / (r - terminal)) / (1 + r) ** years
+    return pv
 
 
 def main() -> int:
@@ -64,6 +72,9 @@ def main() -> int:
     ap.add_argument("--rate", type=float, default=10.0, help="折现率（百分数，默认 10）")
     ap.add_argument("--mos", type=float, default=30.0, help="安全边际（百分数，默认 30）")
     ap.add_argument("--pe", type=float, default=None, help="手动指定 PE，跳过自动取数")
+    ap.add_argument("--two-stage", action="store_true",
+                    help="两阶段：前 3 年按 growth 外推，之后按 --terminal 永续（默认 3%%）")
+    ap.add_argument("--terminal", type=float, default=3.0, help="永续增速（百分数，默认 3）")
     args = ap.parse_args()
 
     code = args.code.zfill(6)
@@ -75,10 +86,13 @@ def main() -> int:
     price = latest_price(code)
 
     g, r = args.growth / 100, args.rate / 100
-    fp = fair_pe(g, r)
+    terminal = args.terminal / 100 if args.two_stage else None
+    fp = fair_pe(g, r, terminal)
     print(f"标的 {code}｜PE {pe:.1f}（{asof}）｜现价 {price:.2f}" if price else f"标的 {code}｜PE {pe:.1f}")
     print(f"折现率 {r*100:.0f}%（他的门槛，1991 信 doc 15 / 2003 问答 doc 159）")
-    print(f"增长假设 {g*100:.0f}%（你的判断，工具不替你定）\n")
+    model = (f"两阶段：前 3 年 {g*100:.0f}%，之后永续 {args.terminal:.0f}%"
+             if args.two_stage else f"永续增长 {g*100:.0f}%")
+    print(f"模型 {model}\n")
 
     if fp is None:
         print(f"✗ 增长假设 {g*100:.0f}% ≥ 折现率 {r*100:.0f}%，戈登模型无解——这种增长假设本身要打折")
@@ -99,7 +113,7 @@ def main() -> int:
 
     print("\n增长假设敏感性（合理 PE）：")
     for gg in (0, 3, 5, 8, 10, 12, 15):
-        v = fair_pe(gg / 100, r)
+        v = fair_pe(gg / 100, r, terminal)
         mark = " ←假设" if gg == args.growth else ""
         print(f"  g={gg:>2}% → " + (f"{v:>6.1f}x" if v else "无解") + mark)
     return 0
