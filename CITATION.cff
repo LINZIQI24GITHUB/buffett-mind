@@ -3,9 +3,9 @@ message: "If you use this corpus or the framework, cite it as below."
 title: "Buffett Mind: a verifiable Buffett corpus and decision framework"
 version: "0.2.0"
 date-released: "2026-11-10"
-url: "https://github.com/LINZIQI24GITHUB/buffett-mind"
+url: "https://github.com/ryanlzq/buffett-mind"
 authors:
-  - name: "LINZIQI24GITHUB"
+  - name: "ryanlzq"
 license: MIT
 references:
   - type: dataset

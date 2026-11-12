@@ -7,7 +7,7 @@ import requests
 
 ROOT = Path(r"C:\Users\Administrator\Documents\deepseek-harness\default-workspace\buffett-pack\skills\buffett-mind")
 SNAP = ROOT / "dist" / "snapshot"
-REPO = "LINZIQI24GITHUB/buffett-mind"
+REPO = "ryanlzq/buffett-mind"
 API = f"https://api.github.com/repos/{REPO}"
 
 
